@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-known-rane-configmap
+data:
+  {{- $files := .Files }}
+  {{- range tuple "100_file.yaml" "200_file.yaml" "300_file.yaml" }}
+  {{ . }}: |-
+    {{ $files.Get . }}
+  {{- end }}
